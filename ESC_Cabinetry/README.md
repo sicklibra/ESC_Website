@@ -1,35 +1,10 @@
-# ESC_Cabinetry
-
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+This is a website built to on vue.js framework as an example of a site for an imaginary cabinetry shop. 
+This site will have several features to include:
+  A home page with navigation bar and and an advertising/site navigation content
+  A cabinetry estimator that will:
+    take overall dimensions of spaces divided by the type of room
+    have options for specialty cabinets
+    give a base model cabinetry estimate for the final installed project
+  A mockup notification for cookie collection
+If there is time:
+  The site will include a mockup api that will work with calendly to schedule an appointment with a compay representetive. 
