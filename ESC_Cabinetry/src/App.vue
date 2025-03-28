@@ -5,7 +5,7 @@
 // const nav=createApp(navigation)
 // nav.use(router)
 // nav.mount('#nav')
-// import { RouterView } from 'vue-router';
+import { RouterView } from 'vue-router';
 </script>
 
 
