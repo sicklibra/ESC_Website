@@ -1,28 +1,23 @@
 <script setup>
-// import router from './router';
-// import navigation from './components/chunks/navigation.vue';
-// import { createApp } from 'vue';
-// const nav=createApp(navigation)
-// nav.use(router)
-// nav.mount('#nav')
+import NAV from '@/components/chunks/navigation.vue';
+import hero from '@/components/chunks/hero.vue'
 import { RouterView } from 'vue-router';
 </script>
 
 
 
 <template>
-  <header>
-      <div id="nav">
-       <RouterLink to="/Estimator">Estimator</RouterLink>
-      </div>
+      <NAV />
+      <hero />
       <div class="wrapper">
       <RouterView></RouterView>
       <h1>This lives in app.vue</h1>
     </div>
-  </header>
 
 </template>
 
-<!-- <style scoped>
-
-</style> -->
+<style scoped>
+NAV{width: 100%;
+margin: 0%;
+padding:0%}
+</style>

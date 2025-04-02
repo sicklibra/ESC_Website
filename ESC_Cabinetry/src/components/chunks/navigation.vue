@@ -1,6 +1,11 @@
+<script setup>
+import { RouterLink } from 'vue-router';
+import icon from '@/icons/escapekey.jpg'
+</script>
+
 <template>
     <header>
-        <img src="../icons/escapekey.jpg" alt=""height='75px'>
+        <img v-bind:src="icon" alt=""height='75px'>
         <div id="htxt">
             <h1>Example Site Cabinetry</h1>
             <sub>"Create your escape in your home"</sub>
