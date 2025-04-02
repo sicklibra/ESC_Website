@@ -8,8 +8,8 @@ import { RouterView } from 'vue-router';
 
 <template>
       <NAV />
-      <hero />
       <div class="wrapper">
+      <hero />
       <RouterView></RouterView>
       <h1>This lives in app.vue</h1>
     </div>
@@ -20,4 +20,14 @@ import { RouterView } from 'vue-router';
 NAV{width: 100%;
 margin: 0%;
 padding:0%}
+
+hero{
+  display: block;
+  max-width: 100px;
+  margin: auto;
+}
+#wrapper{
+  width: 80%;
+  background-color: rgb(12, 162, 137);
+}
 </style>
