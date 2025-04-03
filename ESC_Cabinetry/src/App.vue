@@ -26,8 +26,5 @@ hero{
   max-width: 100px;
   margin: auto;
 }
-#wrapper{
-  width: 80%;
-  background-color: rgb(12, 162, 137);
-}
+
 </style>

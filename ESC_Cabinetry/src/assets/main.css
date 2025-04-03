@@ -39,8 +39,12 @@ NAV{
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem; */
   }
-  #wrapper{
-  width: 80%;
-  background-color: rgb(12, 162, 137);
-}
+  .wrapper{
+    text-align: center;
+    margin: auto;
+    padding:0;
+    margin-top:-21px;
+    width: 80%;
+    background-color: rgb(12, 162, 137);
+  }
 /* } */

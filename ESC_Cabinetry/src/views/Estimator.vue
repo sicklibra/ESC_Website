@@ -7,7 +7,7 @@ import { ref } from 'vue';
   import itw10 from '@/assets/doors/tw10.jpg'
   import icrp10 from '@/assets/doors/crp10.png'
   const PPF={
-    kitchen: 300,
+    kitchen: 275,
     bath: 275,
     laundry: 200,
     closet: 400,
@@ -19,6 +19,7 @@ import { ref } from 'vue';
   const total=0;
   
   const hood=false;
+  const drbx=70
   
     const fronts={
       tenrc:{
@@ -62,5 +63,18 @@ import { ref } from 'vue';
   <div class="estimator">    
     <h1>Estimator</h1>
     <p>an educated guess</p>
+    <div id="doorsel">
+      <h3>Lets pick a door from<br>some basic door styles!</h3>
+      <select  name="door" id="door">
+        <option v-on:select="faceSelect=fronts.tw10.pic" value="tw10">Tw-10</option>
+        <option v-on:select="faceSelect=fronts.crp10.pic" value="crp10">CRP10</option>
+        <option value="10rc">10rc</option>
+        <option value="10sq">10Sq</option>
+        <option value="aspen">Aspen</option>
+        <option value="savannah">SavannahMT</option>
+      </select>
+      <img v-bind:src='faceSelect' alt=""height=150px>
+    </div>
+    <form action="calcprice"></form>
   </div>
 </template>
