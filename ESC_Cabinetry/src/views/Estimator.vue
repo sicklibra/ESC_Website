@@ -13,6 +13,7 @@ import { ref, vModelCheckbox } from 'vue';
     closet: 400,
     island: 375,
   }
+  //obj fronts contains all available door and drawer front info.
 const fronts={
       tenrc:{
         doorprice: 17,
@@ -45,38 +46,47 @@ const fronts={
         pic:isavannah,
       },
     }
-  const bathft=ref(0);
-  const kitft=ref(0);
-  const closetft=ref(0);
-  const islft=ref(0);
-  const kitupft=ref(0);
-  const islbk=ref();
-  const total= 0;
+  //footage acquired by form for calculation
+  const bathft=ref(0); // bathroom vanity cabinets
+  const laundft=ref(0);//laundry normally uppers 
+  const kitft=ref(0); //footage for lower cabinets in kitchen
+  const closetft=ref(0); //normally full height cabs w no fronts
+  const islft=ref(0);  //island
+  const kitupft=ref(0); //upper cabinets
+  const islbk=ref(); //t/f is there an island
+  const hood=ref();  //t/f is there a hood
+  const total= 0; //total price derived from calcprice
   
-  const hood=ref(false);
-  const drbx=70;
-  const drprice= ref( fronts.tw10.doorprice);
-  const drwprice= ref( fronts.tw10.drawerprice);
   
-  // const islbksel=()=>{islbk==false ? islbk=true : islbk=false;}
-    const faceSelect=ref(fronts.tw10.pic);
-    const calcprice=()=>{
-        alert('Disclaimer: \n This estimator is for rough estimates only! \n It is intended to give you a very rough estimate of the cost of your project\n and is subject to change drastically.\nThese changes are influenced by but not limited to:/n -Consolidation through a general contractor. \n -various discounts that may be applied.\n -Differing material choices and colors\n -Accessibility hardships and special requirements. \nBy clicking OK you acknowledge that this estimate is in no way binding and subject to change.');
+  const drbx=70; //drawer boxes fronts separate
+  
+const faceimg= ref(fronts.tw10.pic);
+const getface=()=>{
+  switch (faceimg){
+    case /(tw10)/g:
+      return fronts.tw10;
+    case /(crp10)/g:
+      return fronts.crp10;
+    case /(tenrc)/g:
+      return fronts.tenrc;
+    case /(tensq)/g:
+      return fronts.tensq;
+    case /(aspen)/g:
+      return fronts.aspen;
+    case/(savannah)/g:
+      return fronts.savannah;
+  }
+}
+const calcprice=()=>{
+  const face= getface();
+  const drprice= face.doorprice;
+  const drwprice= face.drawerprice;
+  console.log(drprice + " " + drprice);
+    alert('Disclaimer: \n This estimator is for rough estimates only! \n It is intended to give you a very rough estimate of the cost of your project\n and is subject to change drastically.\nThese changes are influenced by but not limited to:/n -Consolidation through a general contractor. \n -various discounts that may be applied.\n -Differing material choices and colors\n -Accessibility hardships and special requirements. \nBy clicking OK you acknowledge that this estimate is in no way binding and subject to change.');
 
 
-    }
-    const show=(e)=>{
-      var targ=e.target;
-      var img=fronts.pic;
-      var newbox= document.createElement('img')
-      newbox.src=img;
-      newbox.id=hovdisp;
-      document.targ.appendChild(newbox);
-    }
-    const unshow=(e)=>{
-      var targ=e.target;
-      document.targ.removeChild(firstElementChild);
-    }
+}
+
 </script>
 
 <template>
@@ -85,15 +95,16 @@ const fronts={
     <p>an educated guess</p>
     <div id="doorsel">
       <h3>Lets pick a door from<br>some basic door styles!</h3>
-      <select  name="door" id="door">
-        <option v-on:mouseover="show(event)" v-on:mouseout="unshow(event)" id="tw10">Tw-10</option>
-        <option v-on:mouseover="show(event)" v-on:mouseout="unshow(event)" id="crp10">CRP10</option>
-        <option v-on:mouseover="show(event)" v-on:mouseout="unshow(event)" id="tenrc">10rc</option>
-        <option v-on:mouseover="show(event)" v-on:mouseout="unshow(event)" id="tensq">10Sq</option>
-        <option v-on:mouseover="show(event)" v-on:mouseout="unshow(event)" id="aspen">Aspen</option>
-        <option v-on:mouseover="show(event)" v-on:mouseout="unshow(event)" id="savannah">SavannahMT</option>
+      <select  name="door" id="door"  v-model="faceimg">
+        <option :value='fronts.tw10.pic'  name="tw10">Tw-10</option>
+        <option :value='fronts.crp10.pic' name="crp10">CRP10</option>
+        <option :value="fronts.tenrc.pic" name="tenrc">10rc</option>
+        <option :value="fronts.tensq.pic" name="tensq">10Sq</option>
+        <option :value="fronts.aspen.pic" name="aspen">Aspen</option>
+        <option :value="fronts.savannah.pic" name="savannah">SavannahMT</option>
       </select>
-      <img :src='faceSelect' alt=""height='150px'>
+      <img :src='faceimg' alt=""height='150px'>
+      <!-- <div id="faceimg" height="150px">{{ faceSelect }}</div>  -->
     </div>
     <form @submit.prevent="calcprice">
       <label for="kitft">Kitchen linear footage</label>
