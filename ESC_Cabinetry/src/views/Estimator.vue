@@ -59,28 +59,12 @@ const fronts={
   
   
   const drbx=70; //drawer boxes fronts separate
-  
-const faceimg= ref(fronts.tw10.pic);
-const getface=()=>{
-  switch (faceimg){
-    case /(tw10)/g:
-      return fronts.tw10;
-    case /(crp10)/g:
-      return fronts.crp10;
-    case /(tenrc)/g:
-      return fronts.tenrc;
-    case /(tensq)/g:
-      return fronts.tensq;
-    case /(aspen)/g:
-      return fronts.aspen;
-    case/(savannah)/g:
-      return fronts.savannah;
-  }
-}
+  const face= ref(fronts.tw10);
+
 const calcprice=()=>{
-  const face= getface();
-  const drprice= face.doorprice;
-  const drwprice= face.drawerprice;
+  // 
+  // const drprice= face.doorprice;
+  // const drwprice= face.drawerprice;
   console.log(drprice + " " + drprice);
     alert('Disclaimer: \n This estimator is for rough estimates only! \n It is intended to give you a very rough estimate of the cost of your project\n and is subject to change drastically.\nThese changes are influenced by but not limited to:/n -Consolidation through a general contractor. \n -various discounts that may be applied.\n -Differing material choices and colors\n -Accessibility hardships and special requirements. \nBy clicking OK you acknowledge that this estimate is in no way binding and subject to change.');
 
@@ -95,22 +79,23 @@ const calcprice=()=>{
     <p>an educated guess</p>
     <div id="doorsel">
       <h3>Lets pick a door from<br>some basic door styles!</h3>
-      <select  name="door" id="door"  v-model="faceimg">
-        <option :value='fronts.tw10.pic'  name="tw10">Tw-10</option>
-        <option :value='fronts.crp10.pic' name="crp10">CRP10</option>
-        <option :value="fronts.tenrc.pic" name="tenrc">10rc</option>
-        <option :value="fronts.tensq.pic" name="tensq">10Sq</option>
-        <option :value="fronts.aspen.pic" name="aspen">Aspen</option>
-        <option :value="fronts.savannah.pic" name="savannah">SavannahMT</option>
+      <select  name="door" id="door"  v-model="face">
+        <option :value='fronts.tw10'  name="tw10">Tw-10</option>
+        <option :value='fronts.crp10' name="crp10">CRP10</option>
+        <option :value="fronts.tenrc" name="tenrc">10rc</option>
+        <option :value="fronts.tensq" name="tensq">10Sq</option>
+        <option :value="fronts.aspen" name="aspen">Aspen</option>
+        <option :value="fronts.savannah" name="savannah">SavannahMT</option>
       </select>
-      <img :src='faceimg' alt=""height='150px'>
-      <!-- <div id="faceimg" height="150px">{{ faceSelect }}</div>  -->
+      <img :src='face.pic' alt=""height='150px'>
     </div>
     <form @submit.prevent="calcprice">
       <label for="kitft">Kitchen linear footage</label>
       <input type="number" id="kitft" name="kitft" v-model="kitft">
       <label for="kitupft">Kitchen upper cabinet linear footage</label>
       <input type="number" id="kitupft" name="kitupft" v-model="kitupft">
+      <label for="hood">decorative wood hood?</label>
+      <input type="checkbox" name="hood" id="hood" v-model="hood">
       <label for="islft">Kitchen island linear footage</label>
       <input type="number" name="islft" id="islft" v-model="islft">
       <label for="backcab">Cabinets on back of island</label>
@@ -119,6 +104,8 @@ const calcprice=()=>{
       <input type='number' id="bathft" name="bathft" v-model="bathft">
       <label for="closetft">Closet linear footage</label>
       <input type="number" id="closetft" name="closetft" v-model="closetft">
+      <label for="laundft">Laundry room footage</label>
+      <input type="number" name="laundft" id="laundft" v-model="laundft">
       <button v-on:submit="calcprice">submit</button>
 
     </form>
