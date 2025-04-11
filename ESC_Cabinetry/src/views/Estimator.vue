@@ -55,21 +55,62 @@ const fronts={
   const kitupft=ref(0); //upper cabinets
   const islbk=ref(); //t/f is there an island
   const hood=ref();  //t/f is there a hood
+  const bath3stk=ref(0);
+  const kit3stk=ref(0)
   const total= 0; //total price derived from calcprice
-  
+  const totft=0;
+  const numdoors=0;
+  const numdrawers=0;
   
   const drbx=70; //drawer boxes fronts separate
   const face= ref(fronts.tw10);
 
 const calcprice=()=>{
-  // 
-  // const drprice= face.doorprice;
-  // const drwprice= face.drawerprice;
-  console.log(drprice + " " + drprice);
+  total=0;
+  const drprice= face.doorprice; //get price of each door based on selection
+  const drwprice= face.drawerprice; // get price of drawer face based on selection
+
+  // if they get back facing cabs on the island... double the island linear footage.
+  if (islbk){
+    islft *= 2
+  }
+  var kitbxL=Math.round(islft + kitft/2);//#of base kitchen boxes estincl island
+
+  //fail safe for ridiculous numbers in drawer bases
+
+  //assume min 24" for a sink must have at least 1 more foot to have drawer base
+  if(bathft<3){
+    bath3stk=0;
+  }
+  //if more  drawer bases than footage requested knock it down to 12" bases and account for sink
+  else if (bathft-3 < bath3stk){
+    bath3stk= bathft-3;
+  }
+  //if there are more 3 stacks requested than kitchen cabinets, leave one cab for sink make the rest 3 drawers
+  if (kit3stk > kitbxL-1){
+    kit3stk=kitbxL-1;
+  }  
+  // grabs total feet for door and drawer estimates given doors avg 12" count 1 door per ft
+  totft= kitft + kitupft + islft + bathft + laundft + closetft;
+  //closets don't normally get doors, scrap for est.
+  // //average 2 doors per cabinet 12" per door kitchen automatically gets 1 drawer in all lowers subtract 1 door for each 3 stack
+  // this will keep it on the slightly higher end to avoid sticker shock.
+  numdoors= totft - closetft - kit3stk - bath3stk; 
+  
+  numdrawers= kitbxL + (kit3stk * 2 ) + ( bath3stk*3); //drawer for each kitchen cabinet so add 2 more drwrs for 3 stack.
+  // warn that this estimate is not binding in any way. 
     alert('Disclaimer: \n This estimator is for rough estimates only! \n It is intended to give you a very rough estimate of the cost of your project\n and is subject to change drastically.\nThese changes are influenced by but not limited to:/n -Consolidation through a general contractor. \n -various discounts that may be applied.\n -Differing material choices and colors\n -Accessibility hardships and special requirements. \nBy clicking OK you acknowledge that this estimate is in no way binding and subject to change.');
 
 
+// price for drawers and doors 
+total +=(numdoors * drprice) + (numdrawers * drwprice) + (numdrawers * drbx);
+//price for boxes added 
+total += (PPF.kitchen * (kitft + kitupft)) +(PPF.bath * bathft) + (PPF.closet * islft) + (PPF.laundry * laundft) 
+//add 30% installation charge
+total += (tot*.3)
+document.getElementById('output').style.display='';
 }
+
 
 </script>
 
@@ -92,6 +133,8 @@ const calcprice=()=>{
     <form @submit.prevent="calcprice">
       <label for="kitft">Kitchen linear footage</label>
       <input type="number" id="kitft" name="kitft" v-model="kitft">
+      <label for="kit3stk">How many three drawer cabinets for your kitchen?<br> (island included)</label>
+      <input type="number" name="kit3stk" id="kit3stk" v-model="kit3stk">
       <label for="kitupft">Kitchen upper cabinet linear footage</label>
       <input type="number" id="kitupft" name="kitupft" v-model="kitupft">
       <label for="hood">decorative wood hood?</label>
@@ -102,18 +145,32 @@ const calcprice=()=>{
       <input type="checkbox" name="backcab" id="backcab" v-model="islbk">
       <label for="bathft">Bath Vanity linear footage</label>
       <input type='number' id="bathft" name="bathft" v-model="bathft">
+      <label for="bath3stk">How many 3 stack cabinets do you want in your bathroom?<br> (must have room for sink.)</label>
+      <input type="number" value="bath3stk" id="bath3stk" v-model="bath3stk">
       <label for="closetft">Closet linear footage</label>
       <input type="number" id="closetft" name="closetft" v-model="closetft">
       <label for="laundft">Laundry room footage</label>
       <input type="number" name="laundft" id="laundft" v-model="laundft">
       <button v-on:submit="calcprice">submit</button>
-
     </form>
+  </div>
+
+  <div id="output" style="display: none;">
+    <h1>Your "Mud on the Wall Estimate!"</h1>
+    <h2>{{ total }}</h2>
+    <ul>Estimated quantities:</ul>
+    <li>doors: {{ numdoors }}</li>
+    <li>drawers: {{ numdrawers }}</li>
+    <li>Total Linear footage: {{ totft }}</li>
   </div>
 </template>
 
 <style scoped>
 #hovdisp {
   float:right;
+}
+#output {
+  margin: auto;
+  text-align: center;
 }
 </style>
