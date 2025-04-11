@@ -57,10 +57,10 @@ const fronts={
   const hood=ref();  //t/f is there a hood
   const bath3stk=ref(0);
   const kit3stk=ref(0)
-  var total= 0; //total price derived from calcprice
-  var totft= 0 ;
-  var numdoors= 0;
-  var numdrawers=0;
+  var total= ref(0); //total price derived from calcprice
+  var totft=ref(0) ;
+  var numdoors= ref(0);
+  var numdrawers=ref(0);
   
   const drbx=70; //drawer boxes fronts separate
   const face= ref(fronts.tw10);
@@ -72,7 +72,7 @@ const calcprice=()=>{
   var bath3=bath3stk.value;
   var kit3=kit3stk.value;
   var isltot=islft.value
-  var drprice=20; //get price of each door based on selection
+  var drprice= 20; //get price of each door based on selection
   var drwprice= 25; // get price of drawer face based on selection
 
   // if they get back facing cabs on the island... double the island linear footage.
@@ -99,23 +99,23 @@ const calcprice=()=>{
     kit3=kitbxL-1;
   }  
   // grabs total feet for door and drawer estimates given doors avg 12" count 1 door per ft
-  totft = kitft.value + kitupft.value + isltot + bathft.value + laundft.value + closetft.value;
+  totft.value = kitft.value + kitupft.value + isltot + bathft.value + laundft.value + closetft.value;
   //closets don't normally get doors, scrap for est.
   // //average 2 doors per cabinet 12" per door kitchen automatically gets 1 drawer in all lowers subtract 1 door for each 3 stack
   // this will keep it on the slightly higher end to avoid sticker shock.
-  numdoors = totft - closetft.value - kit3 - bath3; 
+  numdoors.value = totft.value - closetft.value - kit3 - bath3; 
   
-  numdrawers = kitbxL + (kit3 * 2 ) + ( bath3  *3); //drawer for each kitchen cabinet so add 2 more drwrs for 3 stack.
+  numdrawers.value = kitbxL + (kit3 * 2 ) + ( bath3  *3); //drawer for each kitchen cabinet so add 2 more drwrs for 3 stack.
   // warn that this estimate is not binding in any way. 
     // alert('Disclaimer: \n This estimator is for rough estimates only! \n It is intended to give you a very rough estimate of the cost of your project\n and is subject to change drastically.\nThese changes are influenced by but not limited to:/n -Consolidation through a general contractor. \n -various discounts that may be applied.\n -Differing material choices and colors\n -Accessibility hardships and special requirements. \nBy clicking OK you acknowledge that this estimate is in no way binding and subject to change.');
 
 
 // price for drawers and doors 
-total = (numdoors* drprice) + (numdrawers * drwprice) + (numdrawers * drbx);
+total.value = (numdoors.value * drprice) + (numdrawers.value * drwprice) + (numdrawers.value * drbx);
 //price for boxes added 
-total += (275 * (kitft.value + kitupft.value)) +(275 * bathft.value) + (400 * islft.value) + (200 * laundft.value) 
+total.value += (275 * (kitft.value + kitupft.value)) +(275 * bathft.value) + (400 * islft.value) + (200 * laundft.value) 
 //add 30% installation charge
-total += (total* .3)
+total.value += (total.value * .3)
 document.getElementById('output').style.display='';
 }
 
@@ -163,7 +163,7 @@ document.getElementById('output').style.display='';
 
   <div id="output" style="display: none;">
     <h1>Your "Mud on the Wall Estimate!"</h1>
-    <h2>{{ total }}</h2>
+    <h2>${{ total }}</h2>
     <ul>Estimated quantities:</ul>
     <li>doors: {{ numdoors }}</li>
     <li>drawers: {{ numdrawers }}</li>
