@@ -114,6 +114,9 @@ const calcprice=()=>{
 total.value = (numdoors.value * drprice) + (numdrawers.value * drwprice) + (numdrawers.value * drbx);
 //price for boxes added 
 total.value += (275 * (kitft.value + kitupft.value)) +(275 * bathft.value) + (400 * islft.value) + (200 * laundft.value) 
+if (hood){
+  total.value+= 700;
+}
 //add 30% installation charge
 total.value += (total.value * .3)
 document.getElementById('output').style.display='';
@@ -137,28 +140,37 @@ document.getElementById('output').style.display='';
         <option :value="fronts.savannah" name="savannah">SavannahMT</option>
       </select>
       <img :src='face.pic' alt=""height='150px'>
-    </div id='form'>
-      <label for="kitft">Kitchen linear footage</label>
-      <input type="number" id="kitft" name="kitft" v-model="kitft">
-      <label for="kit3stk">How many three drawer cabinets for your kitchen?<br> (island included)</label>
-      <input type="number" name="kit3stk" id="kit3stk" v-model="kit3stk">
-      <label for="kitupft">Kitchen upper cabinet linear footage</label>
-      <input type="number" id="kitupft" name="kitupft" v-model="kitupft">
-      <label for="hood">decorative wood hood?</label>
-      <input type="checkbox" name="hood" id="hood" v-model="hood">
-      <label for="islft">Kitchen island linear footage</label>
-      <input type="number" name="islft" id="islft" v-model="islft">
-      <label for="backcab">Cabinets on back of island</label>
-      <input type="checkbox" name="backcab" id="backcab" v-model="islbk">
+    </div>
+    <div id='form'>
+    <div id="kitchen">
+      <label for="kitft">Kitchen linear footage</label> <br>
+      <input type="number" id="kitft" name="kitft" v-model="kitft"><br>
+      <label for="kit3stk">How many three drawer cabinets for your kitchen?<br> (island included)</label> <br>
+      <input type="number" name="kit3stk" id="kit3stk" v-model="kit3stk"><br>
+      <label for="kitupft">Kitchen upper cabinet linear footage</label><br>
+      <input type="number" id="kitupft" name="kitupft" v-model="kitupft">  <br>    
+      <label for="islft">Kitchen island linear footage</label><br>
+      <input type="number" name="islft" id="islft" v-model="islft"><br>
+      <div id="kitchecks">
+        <label for="hood">decorative wood hood?</label>
+        <input type="checkbox" name="hood" id="hood" v-model="hood"> <br>
+        <label for="backcab">Cabinets on back of island</label>
+        <input type="checkbox" name="backcab" id="backcab" v-model="islbk">
+      </div>
+    </div>
+    <div id="bath">
       <label for="bathft">Bath Vanity linear footage</label>
       <input type='number' id="bathft" name="bathft" v-model="bathft">
       <label for="bath3stk">How many 3 stack cabinets do you want in your bathroom?<br> (must have room for sink.)</label>
       <input type="number" value="bath3stk" id="bath3stk" v-model="bath3stk">
+    </div>
+    <div id="misc">
       <label for="closetft">Closet linear footage</label>
-      <input type="number" id="closetft" name="closetft" v-model="closetft">
+      <input type="number" id="closetft" name="closetft" v-model="closetft"> <br>
       <label for="laundft">Laundry room footage</label>
       <input type="number" name="laundft" id="laundft" v-model="laundft">
       <button @click="calcprice">submit</button>
+  </div>
   </div>
 
   <div id="output" style="display: none;">
@@ -169,14 +181,56 @@ document.getElementById('output').style.display='';
     <li>drawers: {{ numdrawers }}</li>
     <li>Total Linear footage: {{ totft }}</li>
   </div>
+  </div>
 </template>
 
 <style scoped>
-#hovdisp {
-  float:right;
-}
 #output {
   margin: auto;
   text-align: center;
+  display: block;
+  width: 60%;
+  margin-top: 100px;
+  /* background-color: beige; */
+}
+#output h1{
+  color: brown;
+}
+#kitchen{
+  margin: auto;
+  display: block;
+  float: left;
+  width: 32%;
+  text-align: center;
+}
+ul{
+  /* display: flex; */
+  text-align: center;
+}
+#bath{
+  margin: auto;
+  display: block;
+  float: left;
+  width: 32%;
+  text-align: center;
+}
+#misc{
+  margin: auto;
+  display: block;
+  width: 32%;
+  float: right;
+  text-align: center;
+}
+.estimator{
+  min-height: 700px;
+}
+#kitchecks{
+  text-align: justify;
+}
+input{
+  margin-bottom: 15px;
+}
+#form{
+  display: block;
 }
 </style>
