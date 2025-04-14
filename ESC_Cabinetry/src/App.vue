@@ -1,6 +1,7 @@
 <script setup>
 import NAV from '@/components/chunks/navigation.vue';
-import hero from '@/components/chunks/hero.vue'
+import hero from '@/components/chunks/hero.vue';
+import Footer from '@/components/chunks/Footer.vue'
 import { RouterView } from 'vue-router';
 </script>
 
@@ -11,8 +12,8 @@ import { RouterView } from 'vue-router';
       <div class="wrapper">
       <hero />
       <RouterView></RouterView>
-      <h1>This lives in app.vue</h1>
-    </div>
+      </div>
+      <Footer />
 
 </template>
 
@@ -25,6 +26,9 @@ hero{
   display: block;
   max-width: 100px;
   margin: auto;
+}
+RouterView{
+  width: 100%;
 }
 
 </style>
