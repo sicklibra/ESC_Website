@@ -66,9 +66,6 @@ const fronts={
   const face= ref(fronts.tw10);
 
 const calcprice=()=>{
-  // if (total !=0){
-  //   total=0;
-  // }
   var bath3=bath3stk.value;
   var kit3=kit3stk.value;
   var isltot=islft.value
