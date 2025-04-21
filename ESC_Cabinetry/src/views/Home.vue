@@ -4,6 +4,7 @@
 
 <template>
   <div class="home">    
-      <h1>this is in the homeview</h1>
+      <h1>Welcome to Example Site Cabinetry</h1>
+      <sub>Your escape key to the perfect at home retreat!</sub>
   </div>
 </template>
