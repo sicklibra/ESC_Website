@@ -1,3 +1,16 @@
+/*<!-- 
+ Author: Josh Hodges
+ CSCI215 section 1
+ Purpose:
+  This project exists to display the use of the Vue.js front end frameowork
+  This site functions as a fully functional single page application website
+  that includes an estimator that will accept the user input of linear footage
+  and specialty cabinets and generate an estimated cost for the Job. 
+  
+  most of this came with the framework. 
+  
+  --> */
+
 import './assets/main.css'
 
 import { createApp } from 'vue'
